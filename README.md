@@ -1,6 +1,6 @@
 # GlycanML: A Multi-Task and Multi-Structure Benchmark for Glycan Machine Learning
 
-This is the official codebase of the paper [GlycanML: A Multi-Task and Multi-Structure Benchmark for Glycan Machine Learning].
+This is the official codebase of the paper [GlycanML: A Multi-Task and Multi-Structure Benchmark for Glycan Machine Learning](https://arxiv.org/pdf/2405.16206).
 
 [Minghao Xu](https://chrisallenming.github.io),
 Yunteng Geng*,
@@ -121,3 +121,12 @@ In the future, we will open the entrance to receive new benchmark results of new
 This codebase is released under the Apache License 2.0 as in the [LICENSE](LICENSE) file.
 
 ## Citation ##
+If you find this codebase helpful in your research, please cite the following paper.
+```
+@article{xu2024glycanml,
+  title={GlycanML: A Multi-Task and Multi-Structure Benchmark for Glycan Machine Learning}, 
+  author={Minghao Xu and Yunteng Geng and Yihang Zhang and Ling Yang and Jian Tang and Wentao Zhang},
+  journal={arXiv preprint arXiv:2405.16206},
+  year={2024},
+}
+```
