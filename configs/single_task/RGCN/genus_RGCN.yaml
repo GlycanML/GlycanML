@@ -1,0 +1,41 @@
+output_dir: ~/scratch/torchglycan_output/
+
+dataset:
+  class: GlycanClassification
+  path: ~/scratch/glycan-datasets/
+  target_fields: ["genus"]
+  unit_feature: default
+  link_feature: default
+
+task:
+  class: GlycanPropertyPrediction
+  model:
+    class: GlycanRGCN
+    num_unit: 143
+    num_relation: 84  
+    input_dim: 128
+    hidden_dims: [128, 128, 128]
+    concat_hidden: True
+    readout: dual
+  criterion: ce
+  metric: ["acc", "mcc"]
+  num_mlp_layer: 2
+  num_class: 922
+
+metric: accuracy [genus]
+
+optimizer:
+  class: Adam
+  lr: 5.0e-4
+  weight_decay: 0.001
+
+engine:
+  gpus: {{ gpus }}
+  batch_size: 256
+
+train:
+  num_epoch: 50
+  
+scheduler:
+  class: CosineAnnealingLR
+  T_max: 100

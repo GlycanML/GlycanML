@@ -1,0 +1,37 @@
+output_dir: ~/scratch/torchglycan_output/
+
+dataset:
+  class: GlycanImmunogenicity
+  path: ~/scratch/glycan-datasets/
+  target_fields: ["immunogenicity"]
+  unit_feature: default
+  link_feature: default
+  verbose: 0
+
+task:
+  class: PropertyPrediction
+  model:
+    class: GlycanBERT
+    input_dim: 216
+    hidden_dim: 512
+    num_layers: 4
+    num_heads: 8
+    intermediate_dim: 2048
+    hidden_dropout: 0.1
+    attention_dropout: 0.1
+  criterion: bce
+  metric: ["auroc", "auprc"]
+  num_mlp_layer: 2
+
+metric: auroc [immunogenicity]
+
+optimizer:
+  class: Adam
+  lr: 5.0e-5
+
+engine:
+  gpus: {{ gpus }}
+  batch_size: 256
+
+train:
+  num_epoch: 50

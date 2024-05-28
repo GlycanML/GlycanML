@@ -1,0 +1,28 @@
+slurm-*
+
+# PyCharm
+.idea/
+
+# Sphinx
+/doc/build
+
+# Python
+__pycache__
+*.pyc
+*.egg-info
+
+# macOS
+*/.DS_Store
+.DS_Store
+
+.*.npy
+*.txt
+*.pkl
+!module/custom_data/glycoword_vocab.pkl
+data/results
+scratch/
+*tmp*
+module/custom_data/graph.py
+module/custom_data/molecule.py
+module/custom_data/protein.py
+module/custom_data/feature.py

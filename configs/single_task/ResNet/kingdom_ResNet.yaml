@@ -1,0 +1,36 @@
+output_dir: ~/scratch/torchglycan_output/
+
+dataset:
+  class: GlycanClassification
+  path: ~/scratch/torchglycan_output/
+  target_fields: ["kingdom"]
+  unit_feature: default
+  link_feature: default
+  verbose: 0
+
+task:
+  class: PropertyPrediction
+  model:
+    class: GlycanResNet
+    glycoword_dim: 216
+    input_dim: 512
+    hidden_dims: [512, 512, 512, 512, 512, 512, 512, 512]
+    layer_norm: True
+    dropout: 0.1
+  criterion: ce
+  metric: ["acc", "mcc"]
+  num_mlp_layer: 2
+  num_class: 11
+
+metric: accuracy [kingdom]
+
+optimizer:
+  class: Adam
+  lr: 1.0e-4
+
+engine:
+  gpus: {{ gpus }}
+  batch_size: 256
+
+train:
+  num_epoch: 50

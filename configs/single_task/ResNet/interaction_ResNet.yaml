@@ -1,0 +1,42 @@
+output_dir: ~/scratch/torchglycan_output/
+
+dataset:
+  class: ProteinGlycanInteraction
+  path: ~/scratch/glycan-datasets/
+  unit_feature: default
+  link_feature: default
+  atom_feature: null
+  bond_feature: null
+
+task:
+  class: InteractionPrediction
+  model:
+    class: ESM
+    path: ~/scratch/esm-model-weights/
+    model: ESM-1b
+    readout: mean
+  model2:
+    class: GlycanResNet
+    glycoword_dim: 216
+    input_dim: 512
+    hidden_dims: [512, 512, 512, 512, 512, 512, 512, 512]
+    layer_norm: True
+    dropout: 0.1
+  criterion: mse
+  metric: [ "mae", "rmse", "spearmanr" ]
+  num_mlp_layer: 2
+
+metric: root mean squared error [interaction]
+
+optimizer:
+  class: Adam
+  lr: 1.0e-4
+
+engine:
+  gpus: {{ gpus }}
+  batch_size: 32
+
+train:
+  num_epoch: 10
+
+fix_encoder: True

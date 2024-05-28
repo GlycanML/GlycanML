@@ -1,0 +1,44 @@
+output_dir: ~/scratch/torchglycan_output/
+
+dataset:
+  class: GlycanClassification
+  path: ~/scratch/glycan-datasets/
+  target_fields: ["domain", "kingdom", "phylum", "class", "order", "family", "genus", "species"]
+  unit_feature: default
+  link_feature: default
+
+  class: GlycanPropertyPrediction
+  model:
+    class: GlycanBERT
+    input_dim: 216
+    hidden_dim: 512
+    num_layers: 4
+    num_heads: 8
+    intermediate_dim: 2048
+    hidden_dropout: 0.1
+    attention_dropout: 0.1
+  criterion: ce
+  metric: ["acc", "mcc"]
+  num_mlp_layer: 2
+  num_class: [4, 11, 39, 101, 210, 415, 922, 1737]
+  # adjust: uw [-2]         # uncertainty weighting, [logvar]
+  # adjust: ts [-2]         # temperature scaling, [logvar]
+  # adjust: dwa [2]         # dynamic weight averaging, [T]
+  # adjust: dtp [1]         # dynamic task prioritization, [gamma]
+  # adjust: gn [1]          # gradnorm, [alpha]
+  # adjust: norm            # loss normalization
+
+metric: accuracy [average]
+
+optimizer:
+  class: Adam
+  lr: 2.0e-4
+ 
+mtl_lr: 2.5e-2
+
+engine:
+  gpus: {{ gpus }}
+  batch_size: 256
+
+train:
+  num_epoch: 50

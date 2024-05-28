@@ -1,0 +1,36 @@
+output_dir: ~/scratch/torchglycan_output/
+
+dataset:
+  class: GlycanClassification
+  path: ~/scratch/glycan-datasets/
+  target_fields: ["domain"]
+  unit_feature: default
+  link_feature: default
+
+task:
+  class: PropertyPrediction
+  model:
+    class: GlycanConvolutionalNetwork
+    glycoword_dim: 216
+    input_dim: 1024
+    hidden_dims: [1024, 1024]
+    kernel_size: 5
+    padding: 2
+    readout: max
+  criterion: ce
+  metric: ["acc", "mcc"]
+  num_mlp_layer: 2
+  num_class: 4
+
+metric: accuracy [domain]
+
+optimizer:
+  class: Adam
+  lr: 2.0e-4
+
+engine:
+  gpus: {{ gpus }}
+  batch_size: 256
+
+train:
+  num_epoch: 50

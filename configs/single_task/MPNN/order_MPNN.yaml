@@ -1,0 +1,42 @@
+output_dir: ~/scratch/torchglycan_output/
+
+dataset:
+  class: GlycanClassification
+  path: ~/scratch/glycan-datasets/
+  target_fields: ["order"]
+  unit_feature: default
+  link_feature: default
+
+task:
+  class: GlycanPropertyPrediction
+  model:
+    class: GlycanMPNN
+    num_unit: 143
+    num_relation: 84  
+    input_dim: 143
+    edge_input_dim: 84
+    hidden_dim: 128
+    num_layer: 3
+    concat_hidden: True
+  criterion: ce
+  metric: ["acc", "mcc"]
+  num_mlp_layer: 2
+  num_class: 210
+
+metric: accuracy [order]
+
+optimizer:
+  class: Adam
+  lr: 5.0e-4
+  weight_decay: 0.001
+
+engine:
+  gpus: {{ gpus }}
+  batch_size: 256
+
+train:
+  num_epoch: 50
+  
+scheduler:
+  class: CosineAnnealingLR
+  T_max: 100
