@@ -111,7 +111,6 @@ python -m torch.distributed.launch --nproc_per_node=4 scripts/run_single.py \
 ## Benchmark Results ##
 
 At the [website of GlycanML], we maintain a leaderboard for each benchmark task. 
-We also maintain an **integrated leaderboard** among different methods by taking the mean reciprocal rank (MRR) as the metric. 
 In the future, we will open the entrance to receive new benchmark results of new methods from the community. 
 
 [website of GlycanML]: https://glycanml.github.io/project/
